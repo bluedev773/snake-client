@@ -12,6 +12,9 @@ const setupInput = function (conn) {
 
   return stdin;
 };
+const greeting = ["My", "name", "is", "Matt", "nice", "to", "meet", "you"];
+const angry = ["GET", "OUT", "THE", "WAY"];
+
 
 const handleUserInput = function(key) {
   if (key === '\u0003') {
@@ -19,33 +22,37 @@ const handleUserInput = function(key) {
     process.exit();
   }
   if (key === '\u0077') {
-    console.log('up')
     connection.write('Move: up');
-    
   }
   if (key === '\u0073') {
-    console.log('down')
     connection.write('Move: down');
-    
   }
   if (key === '\u0061') {
-    console.log('left')
     connection.write('Move: left');
-    
   }
   if (key === '\u0064') {
-    console.log('right')
     connection.write('Move: right');
-    
   }
+
   if (key === '\u0075') {
-    console.log('right')
-    connection.write('Say: hi');
+    
+    angry.forEach((item, index) => {
+      setTimeout(() => {
+        connection.write(`Say: ${item}`);
+      },index * 500)
+    })
+  }
+  if (key === '\u0065') {
+    connection.write(`Say: wow`);
   }
   if (key === '\u0069') {
-    console.log('right')
-    connection.write('Say: move');
+    greeting.forEach((item, index) => {
+      setTimeout(() => {
+        connection.write(`Say: ${item}`);
+      },index * 500)
+    })
   }
+
 }
 
 module.exports = setupInput;
